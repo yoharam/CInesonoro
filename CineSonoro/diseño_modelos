@@ -1,0 +1,52 @@
+CREATE DATABASE IF NOT EXISTS Soundtracks;
+USE Soundtracks;
+
+-- Tabla principal de soundtracks
+CREATE TABLE Soundtrack(
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Titulo VARCHAR(200) NOT NULL,
+    Pelicula VARCHAR(100) NOT NULL,
+    Genero VARCHAR(100) NOT NULL,
+    Discografica VARCHAR(100),
+    Compositor VARCHAR(70) NOT NULL
+);
+
+-- Tabla de canciones con relación al soundtrack
+CREATE TABLE Cancion(
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Titulo VARCHAR(200) NOT NULL,
+    Artista VARCHAR(100) NOT NULL,
+    Numero_cancion INT NOT NULL,
+    Duracion TIME NOT NULL,
+    Soundtrack_ID INT NOT NULL,
+    FOREIGN KEY (Soundtrack_ID) REFERENCES Soundtrack(ID)
+);
+
+DIAGRAMA RELACIONAL
+SOUNDTRACK
+├── ID (PK)
+├── Titulo
+├── Pelicula
+├── Genero
+├── Discografica
+└── Compositor
+
+CANCION
+├── ID (PK)
+├── Titulo
+├── Artista
+├── Numero_cancion
+├── Duracion
+└── Soundtrack_ID (FK) → Soundtrack.ID
+
+INSERCION
+
+INSERT INTO Soundtrack (Titulo, Pelicula, Genero, Discografica, Compositor)
+VALUES ('Interstellar', 'Interestelar', 'Cine sinfónico', 'WaterTower Music', 'Hans Zimmer');
+
+INSERT INTO Cancion (Titulo, Artista, Numero_cancion, Duracion, Soundtrack_ID)
+VALUES 
+('Dreamfield', 'Hans Zimmer', 1, '00:02:39', 1),
+('Cornfield Chase', 'Hans Zimmer', 2, '00:02:06', 1),
+('Stay', 'Hans Zimmer', 3, '00:06:52', 1);
+
